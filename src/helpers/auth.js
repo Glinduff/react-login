@@ -31,7 +31,7 @@ export function saveUser({user}, name){
       uid: user.uid
     })
     .then(() => updateUser(user, name))
-    .then(() => getUser(user))
+    .then(() => getUser(user), emailVerification(user))
 }
 
 export function getUser(user) {

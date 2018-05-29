@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { logout }  from '../helpers/auth' 
+import { logout }  from '../helpers/auth'
+
+import Pets from './Pets'
 
 class Dashboard extends Component {
-
 
   componentDidMount(){
     console.log(this.props)
   }
+
   handleLogout = () => {
     logout()
   }
@@ -20,11 +22,19 @@ class Dashboard extends Component {
           ? <div>{user.name}</div> 
           : null }
         <button onClick={this.handleLogout}>Logout</button>
+        <div>
+          <Pets />
+        </div>
       </div>
     )
   }
 };
 
-export default connect((state) => ({
-  user: state.user
-}))(Dashboard)
+export function mapStateToProps(state) {
+  console.log('mapStateToProps', state)
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Dashboard)

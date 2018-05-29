@@ -46,18 +46,21 @@ class App extends Component {
     const { dispatch } = this.props
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
       console.log(user)
-      if (user) {
-        dispatch(handleGetUserData(user, 
-          () => this.setState({
-            authed: true,
-            loading: false
-          })))
-
-      } else {
+      if (user === null) {
+        console.log('not authed')
         this.setState({
           authed: false,
           loading: false
         })
+      } else if(user && !user.emailVerified){
+        console.log('not verify')
+        this.setState({
+          authed: false,
+          loading: false
+        })
+      } else if(user.emailVerified) {
+        console.log('verify')
+        dispatch(handleGetUserData(user, () => this.setState(({authed: true,loading: false }))))
       }
     })
   }
