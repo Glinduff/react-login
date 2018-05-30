@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { generateUID }  from '../config/constants'
+import { handleAddPet } from '../actions/pets'
 
 
 class Pet extends Component{
@@ -7,13 +9,19 @@ class Pet extends Component{
     return(
       <div>
         <p>{'Mi nombre es: ' + this.props.name}</p>
-        <p>{'Tegno ' + this.props.age + ' años'}</p>
+        <p>{'Tengo ' + this.props.age + ' años'}</p>
       </div>
     )
   }
 }
 
 class PetsForm extends Component {
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.addPet(this.name.value, this.age.value)
+  }
+
   render() {
     return (
       <div>
@@ -29,20 +37,29 @@ class PetsForm extends Component {
 
 
 class Pets extends Component {
+
+  handleClick = (name, age) => {
+    const { dispatch} = this.props
+    const id = generateUID();
+    const pet = {name, age, id}
+    dispatch(handleAddPet(pet))
+  }
+
   render() {
+    const { pets } = this.props
     return (
       <div>
-        <PetsForm />
-        {this.props.pets && this.props.pets(pet => (
-          <Pet name={pet.name} age={pet.age}/>
-        ))}
+        <PetsForm addPet={this.handleClick}/>
+        
       </div>
     )
   }
 };
 
 function mapStateToProps(state){
-  console.log('Pets', state)
+  return{
+    pets: state.pets
+  }
 }
 
 export default connect(mapStateToProps)(Pets)

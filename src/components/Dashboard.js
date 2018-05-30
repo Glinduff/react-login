@@ -6,10 +6,6 @@ import Pets from './Pets'
 
 class Dashboard extends Component {
 
-  componentDidMount(){
-    console.log(this.props)
-  }
-
   handleLogout = () => {
     logout()
   }
@@ -31,7 +27,6 @@ class Dashboard extends Component {
 };
 
 export function mapStateToProps(state) {
-  console.log('mapStateToProps', state)
   return {
     user: state.user
   }
