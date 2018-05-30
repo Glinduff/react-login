@@ -20,9 +20,9 @@ export function add(pet){
 export function handleAddPet (pet) {
   return (dispatch) => {
     dispatch(add(pet))
-    /* return setPet(uid, pet)
+    return setPet(pet)
     .then(resp => {
       console.log(resp)
-    }) */
+    })
   }
 }

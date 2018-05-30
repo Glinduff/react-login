@@ -1,11 +1,34 @@
 import { getUser } from '../helpers/auth'
+import { addPet } from '../helpers/user'
 
 export const RECIVE_USER = 'RECIVE_USER'
+export const ADD_PET = 'ADD_PET'
 
 function getUserData(user) {
   return {
     type: RECIVE_USER,
     user
+  }
+}
+
+export function addUserPet(pet) {
+  return {
+    type: ADD_PET,
+    pet
+  }
+}
+
+export function handleAddUserPet (pet) {
+  return (dispatch, getState) => {
+
+    const { user } = getState()
+    const { uid } = user
+
+    dispatch(addUserPet(pet))
+    return addPet(uid, pet)
+    .then(resp => {
+      console.log(resp)
+    })
   }
 }
 

@@ -6,11 +6,10 @@ export function getPets(uid) {
   .then(snapshot => snapshot.val())
 }
 
-export function setPet(pet) {
-  console.log(pet)
-  /* return ref.child(`pets/${uid}`)
+export function setPet({name, age, id}) {
+  return ref.child(`pets/${id}`)
     .set({
       name,
       age
-    }) */
+    })
 }

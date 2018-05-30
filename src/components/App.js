@@ -45,6 +45,7 @@ class App extends Component {
   componentDidMount() {
     const { dispatch } = this.props
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
+      console.log(user)
       if (user === null) {
         console.log('not authed')
         this.setState({

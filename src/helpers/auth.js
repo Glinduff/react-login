@@ -28,7 +28,8 @@ export function saveUser({user}, name){
     .set({
       name,
       email: user.email,
-      uid: user.uid
+      uid: user.uid,
+      pets: {}
     })
     .then(() => updateUser(user, name))
     .then(() => getUser(user), emailVerification(user))
