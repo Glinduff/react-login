@@ -6,7 +6,11 @@ import { handleAddPet } from '../actions/pets'
 import { handleAddUserPet } from '../actions/user'
 
 
+import { getUserPets } from '../helpers/pets'
+
+
 import { getPets } from '../helpers/user'
+import { getUser } from '../helpers/auth';
 
 class Pet extends Component{
   render(){
@@ -43,7 +47,10 @@ class PetsForm extends Component {
 class Pets extends Component {
 
   componentDidMount() {
-    const { pets } = this.props
+    const { pets, dispatch } = this.props
+    return getUserPets(pets)
+      .then(resp => console.log(resp))
+
   }
 
   handleClick = (name, age) => {
