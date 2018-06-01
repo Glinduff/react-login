@@ -48,7 +48,7 @@ class Pets extends Component {
   handleClick = (name, age) => {
     const { dispatch} = this.props
     const id = generateUID();
-    const pet = {name, age, id}
+    const pet = {name, age}
     dispatch(handleAddUserPet(pet))
     dispatch(handleAddPet(pet))
   }
@@ -73,9 +73,17 @@ class Pets extends Component {
   }
 };
 
-function mapStateToProps(state){
+function mapStateToProps({pets}){
   return{
-    pets: state.pets
+    pets: Object.keys(pets)
+      .map((id) => {
+        const {name , age} = pets[id]
+        return{
+          name,
+          age
+        }
+      })
+      .sort((a,b) => b.age - a.age)
   }
 }
 
