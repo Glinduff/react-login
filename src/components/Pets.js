@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { generateUID }  from '../config/constants'
-import { getPetsList } from '../actions/pets'
 import { handleAddPet } from '../actions/pets'
 import { handleAddUserPet } from '../actions/user'
-
-
-import { getUserPets } from '../helpers/pets'
-
-
-import { getPets } from '../helpers/user'
-import { getUser } from '../helpers/auth';
 
 class Pet extends Component{
   render(){
@@ -50,10 +42,7 @@ class Pets extends Component {
   }
 
   componentDidMount() {
-    const { userPets, dispatch } = this.props
-    return getUserPets(userPets)
-      .then(pets => this.setState({pets}))
-
+    const { dispatch } = this.props
   }
 
   handleClick = (name, age) => {
@@ -65,8 +54,7 @@ class Pets extends Component {
   }
 
   render() {
-    const { userPets } = this.props
-    const { pets } = this.state
+    const { pets } = this.props
     return (
       <div>
         <PetsForm addPet={this.handleClick}/>
@@ -87,7 +75,7 @@ class Pets extends Component {
 
 function mapStateToProps(state){
   return{
-    userPets: state.user.pets
+    pets: state.pets
   }
 }
 

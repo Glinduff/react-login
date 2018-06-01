@@ -1,6 +1,14 @@
 import { firebaseAuth, ref } from '../config/constants'
 
-export function getUserPets(pets) {
+export function setPet({name, age, id}) {
+  return ref.child(`pets/${id}`)
+    .set({
+      name,
+      age
+    })
+}
+
+export function getPets(pets) {
   const userPets = {}
   const petsFromUser = Object.keys(pets)
   var promises = petsFromUser.map((pet) => {
@@ -15,12 +23,4 @@ export function getUserPets(pets) {
     })
     return Promise.all(promises)
     .then(resp => userPets)
-}
-
-export function setPet({name, age, id}) {
-  return ref.child(`pets/${id}`)
-    .set({
-      name,
-      age
-    })
 }

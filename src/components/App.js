@@ -13,6 +13,7 @@ import Dashboard from './Dashboard'
 import { firebaseAuth } from '../config/constants';
 
 import { handleGetUserData } from '../actions/user'
+import { handleRevicePets } from '../actions/pets'
 
 
 const PrivateRoute = ({component: Component, authed, ...rest}) => {
@@ -60,7 +61,9 @@ class App extends Component {
         })
       } else if(user.emailVerified) {
         console.log('verify')
-        dispatch(handleGetUserData(user, () => this.setState(({authed: true,loading: false }))))
+        dispatch(handleGetUserData(user, () => this.setState(({authed: true}))))
+          .then(() => dispatch(handleRevicePets(() => this.setState({loading: false}))))
+        
       }
     })
   }
