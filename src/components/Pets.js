@@ -45,11 +45,14 @@ class PetsForm extends Component {
 
 
 class Pets extends Component {
+  state = {
+    pets: {}
+  }
 
   componentDidMount() {
-    const { pets, dispatch } = this.props
-    return getUserPets(pets)
-      .then(resp => console.log(resp))
+    const { userPets, dispatch } = this.props
+    return getUserPets(userPets)
+      .then(pets => this.setState({pets}))
 
   }
 
@@ -62,13 +65,21 @@ class Pets extends Component {
   }
 
   render() {
-    const { pets } = this.props
+    const { userPets } = this.props
+    const { pets } = this.state
     return (
       <div>
         <PetsForm addPet={this.handleClick}/>
-        {Object.keys(pets).map(pet => (
-          <div key={pet}>pet</div>
-        ))}
+        {Object
+          .keys(pets)
+          .map((key) => 
+            (<Pet 
+              key={key} 
+              name={pets[key].name} 
+              age={pets[key].age} />
+            )
+          )
+        }
       </div>
     )
   }
@@ -76,7 +87,7 @@ class Pets extends Component {
 
 function mapStateToProps(state){
   return{
-    pets: state.user.pets
+    userPets: state.user.pets
   }
 }
 

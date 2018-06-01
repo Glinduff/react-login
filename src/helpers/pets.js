@@ -1,18 +1,20 @@
 import { firebaseAuth, ref } from '../config/constants'
 
-export async function getUserPets(pets) {
+export function getUserPets(pets) {
   const userPets = {}
-  const result = Object.keys(pets).map((pet) => {
-    ref.child(`pets/${pet}`)
-    .on("value", function(snap){
-      userPets[pet] = {
-        name: snap.val().name,
-        age: snap.val().age
-      }
-      console.log(userPets)
+  const petsFromUser = Object.keys(pets)
+  var promises = petsFromUser.map((pet) => {
+    return ref.child(`pets/${pet}`)
+      .once("value")
+      .then((snap) => {
+        return userPets[pet] = {
+          name: snap.val().name,
+          age: snap.val().age
+        }
+      })
     })
-  })
-  console.log(result)
+    return Promise.all(promises)
+    .then(resp => userPets)
 }
 
 export function setPet({name, age, id}) {
