@@ -11,7 +11,7 @@ export function setPet({name, age, id}) {
 export function getPets(pets) {
   const userPets = {}
   const petsFromUser = Object.keys(pets)
-  var promises = petsFromUser.map((pet) => {
+  let promises = petsFromUser.map((pet) => {
     return ref.child(`pets/${pet}`)
       .once("value")
       .then((snap) => {

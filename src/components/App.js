@@ -61,9 +61,7 @@ class App extends Component {
         })
       } else if(user.emailVerified) {
         console.log('verify')
-        dispatch(handleGetUserData(user, () => this.setState(({authed: true}))))
-          .then(() => dispatch(handleRevicePets(() => this.setState({loading: false}))))
-        
+        dispatch(handleGetUserData(user, () => this.setState(({authed: true, loading: false}))))
       }
     })
   }

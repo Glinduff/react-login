@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { logout }  from '../helpers/auth'
 
-import Pets from './Pets'
+import Resumen from './Resumen'
 
 class Dashboard extends Component {
 
@@ -19,7 +19,7 @@ class Dashboard extends Component {
           : null }
         <button onClick={this.handleLogout}>Logout</button>
         <div>
-          <Pets />
+            <Resumen />
         </div>
       </div>
     )
