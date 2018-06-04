@@ -25,10 +25,10 @@ export function handleAddUserPet (pet) {
     const { uid } = user
 
     dispatch(addUserPet(pet))
-   /*  return addPet(uid, pet)
+    return addPet(uid, pet)
     .then(resp => {
       console.log(resp)
-    }) */
+    })
   }
 }
 

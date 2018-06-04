@@ -38,9 +38,9 @@ export function handleRevicePets(cb) {
 export function handleAddPet (pet) {
   return (dispatch) => {
     dispatch(add(pet))
-    /* return setPet(pet)
+    return setPet(pet)
     .then(resp => {
       console.log(resp)
-    }) */
+    })
   }
 }
