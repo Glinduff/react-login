@@ -4,6 +4,8 @@ import { generateUID }  from '../config/constants'
 import { handleAddPet, removePet } from '../actions/pets'
 import { handleAddUserPet } from '../actions/user'
 
+import { addPetListener } from '../actions/pets'
+
 class Pet extends Component{
   render(){
     return(
@@ -44,6 +46,7 @@ class Pets extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
+    const listener = addPetListener(dispatch);
   }
 
   handleClick = (name, age) => {
@@ -61,7 +64,6 @@ class Pets extends Component {
 
   render() {
     const { pets } = this.props
-    console.log(pets)
     return (
       <div>
         <PetsForm addPet={this.handleClick}/>

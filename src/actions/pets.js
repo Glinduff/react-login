@@ -1,4 +1,5 @@
 import { setPet, getPets } from '../helpers/pets'
+import { ref } from '../config/constants'
 
 export const RECIVE_PETS = 'RECIVE_PETS'
 export const ADD_PET = 'ADD_PET'
@@ -37,10 +38,15 @@ export function handleRevicePets(cb) {
 }
 export function handleAddPet (pet) {
   return (dispatch) => {
-    dispatch(add(pet))
     return setPet(pet)
     .then(resp => {
       console.log(resp)
     })
   }
+}
+
+export function addPetListener (dispatch) {
+  return ref.child('/pets').on('child_added', snap => { 
+    dispatch(add(snap.val()))
+  })
 }

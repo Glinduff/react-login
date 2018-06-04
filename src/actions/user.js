@@ -1,5 +1,6 @@
 import { getUser } from '../helpers/auth'
 import { addPet } from '../helpers/user'
+import { ref } from '../config/constants'
 
 export const RECIVE_USER = 'RECIVE_USER'
 export const ADD_USER_PET = 'ADD_USER_PET'
@@ -25,10 +26,10 @@ export function handleAddUserPet (pet) {
     const { uid } = user
 
     dispatch(addUserPet(pet))
-    return addPet(uid, pet)
+    /* return addPet(uid, pet)
     .then(resp => {
       console.log(resp)
-    })
+    }) */
   }
 }
 
