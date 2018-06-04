@@ -2,7 +2,7 @@ import { getUser } from '../helpers/auth'
 import { addPet } from '../helpers/user'
 
 export const RECIVE_USER = 'RECIVE_USER'
-export const ADD_PET = 'ADD_PET'
+export const ADD_USER_PET = 'ADD_USER_PET'
 
 function getUserData(user) {
   return {
@@ -13,7 +13,7 @@ function getUserData(user) {
 
 export function addUserPet(pet) {
   return {
-    type: ADD_PET,
+    type: ADD_USER_PET,
     pet
   }
 }
@@ -25,10 +25,10 @@ export function handleAddUserPet (pet) {
     const { uid } = user
 
     dispatch(addUserPet(pet))
-    return addPet(uid, pet)
+   /*  return addPet(uid, pet)
     .then(resp => {
       console.log(resp)
-    })
+    }) */
   }
 }
 

@@ -29,8 +29,7 @@ export function removePet(petId){
 export function handleRevicePets(cb) {
   return (dispatch, getState) => {
     const { user } = getState()
-    const pets  = user.pets
-    console.log(pets)
+    const pets = user.pets || {}
     return getPets(pets)
       .then(pets => dispatch(recivePets(pets)))
       .then(() => cb())
@@ -39,9 +38,9 @@ export function handleRevicePets(cb) {
 export function handleAddPet (pet) {
   return (dispatch) => {
     dispatch(add(pet))
-    return setPet(pet)
+    /* return setPet(pet)
     .then(resp => {
       console.log(resp)
-    })
+    }) */
   }
 }

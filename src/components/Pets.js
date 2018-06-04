@@ -83,17 +83,10 @@ class Pets extends Component {
 };
 
 function mapStateToProps({pets}){
+
+  const { list } = pets
   return{
-    pets: Object.keys(pets)
-      .map((id) => {
-        const {name , age} = pets[id]
-        return{
-          name,
-          age,
-          id: id
-        }
-      })
-      .sort((a,b) => b.age - a.age)
+    pets: list.sort((a,b) => b.age - a.age)
   }
 }
 

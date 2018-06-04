@@ -1,16 +1,24 @@
 import { RECIVE_PETS, ADD_PET, REMOVE_PET } from '../actions/pets'
 
-export default function pets(state = {}, action) {
+const initialState = {
+  list: [],
+  filterBy: 'wewqe'
+}
+
+export default function pets(state = initialState, action) {
 
   switch(action.type){
     case RECIVE_PETS: {
-      return action.pets
+      return {
+        ...state,
+        list: action.pets
+      }
     }
 
     case ADD_PET: {
       return {
         ...state,
-        [action.pet.id] : action.pet
+        list: state.list.concat(action.pet)
       }
     }
 
