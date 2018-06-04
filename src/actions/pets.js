@@ -2,6 +2,7 @@ import { setPet, getPets } from '../helpers/pets'
 
 export const RECIVE_PETS = 'RECIVE_PETS'
 export const ADD_PET = 'ADD_PET'
+export const REMOVE_PET = 'REMOVE_PET'
 
 export function recivePets(pets) {
   return{
@@ -17,11 +18,19 @@ export function add(pet){
   }
 }
 
+export function removePet(petId){
+  return {
+    type: REMOVE_PET,
+    petId
+  }
+}
+
 
 export function handleRevicePets(cb) {
   return (dispatch, getState) => {
     const { user } = getState()
     const pets  = user.pets
+    console.log(pets)
     return getPets(pets)
       .then(pets => dispatch(recivePets(pets)))
       .then(() => cb())

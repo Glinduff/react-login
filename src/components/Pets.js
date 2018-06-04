@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { generateUID }  from '../config/constants'
-import { handleAddPet } from '../actions/pets'
+import { handleAddPet, removePet } from '../actions/pets'
 import { handleAddUserPet } from '../actions/user'
 
 class Pet extends Component{
   render(){
     return(
-      <div>
+      <div style={{padding: '1rem'}}>
         <p>{'Mi nombre es: ' + this.props.name}</p>
         <p>{'Tengo ' + this.props.age + ' años'}</p>
+        <button onClick={() => this.props.removePet(this.props.id)}>Eliminar</button>
       </div>
     )
   }
@@ -48,23 +49,31 @@ class Pets extends Component {
   handleClick = (name, age) => {
     const { dispatch} = this.props
     const id = generateUID();
-    const pet = {name, age}
+    const pet = {name, age, id}
     dispatch(handleAddUserPet(pet))
     dispatch(handleAddPet(pet))
   }
 
+  handleRemove = (pet) => {
+    const { dispatch } = this.props
+    dispatch(removePet(pet))
+  }
+
   render() {
     const { pets } = this.props
+    console.log(pets)
     return (
       <div>
         <PetsForm addPet={this.handleClick}/>
         {Object
           .keys(pets)
-          .map((key) => 
+          .map( key => 
             (<Pet 
               key={key} 
               name={pets[key].name} 
-              age={pets[key].age} />
+              age={pets[key].age}
+              id={pets[key].id}
+              removePet={this.handleRemove} />
             )
           )
         }
@@ -80,7 +89,8 @@ function mapStateToProps({pets}){
         const {name , age} = pets[id]
         return{
           name,
-          age
+          age,
+          id: id
         }
       })
       .sort((a,b) => b.age - a.age)

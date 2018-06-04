@@ -1,4 +1,4 @@
-import { RECIVE_PETS, ADD_PET } from '../actions/pets'
+import { RECIVE_PETS, ADD_PET, REMOVE_PET } from '../actions/pets'
 
 export default function pets(state = {}, action) {
 
@@ -12,6 +12,14 @@ export default function pets(state = {}, action) {
         ...state,
         [action.pet.id] : action.pet
       }
+    }
+
+    case REMOVE_PET: {
+      const { [action.petId]: petId , ...newState } = state;
+      console.log(action.petId, petId)
+      console.log(newState)
+      return newState
+      
     }
 
     default:

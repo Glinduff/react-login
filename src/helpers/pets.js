@@ -4,7 +4,8 @@ export function setPet({name, age, id}) {
   return ref.child(`pets/${id}`)
     .set({
       name,
-      age
+      age,
+      id
     })
 }
 
